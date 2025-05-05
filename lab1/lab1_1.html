@@ -17,6 +17,10 @@
 <div id="printBlock"></div>
 <script>
 let age = document.getElementsByTagName("agetext").value;
+let selectedValue = document.querySelector('input[name="gender"]:checked')?.value;
+if (age >= 0 & age <= 17) {
+    resultarea.value = "Вам работать ещё рано — учитесь"
+}
 </script>
 </body>
 </html>

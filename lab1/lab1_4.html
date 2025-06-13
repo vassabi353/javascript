@@ -1,1 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+ <head>
+  <meta charset="UTF-8">
+  <title>Простые числа</title>
+ </head>
+ <body>
 
+  <form id="f">
+   <p>
+    <label>
+     Введите n:
+     <input id="ninput" required>
+    </label>
+   </p>
+
+   <p>
+    <label>
+     <textarea id='numbers' readonly>
+     </textarea>
+    </label>
+   </p>
+
+   <input type="submit" value="Найти">
+  </form>
+
+  <script>
+   'use strict';
+
+   f.addEventListener('submit', primes);
+
+   function primes() {
+
+       event.preventDefault();
+
+       let n = ninput.value;
+       numbers.value = '';
+
+       for (let i = 2; i <= n; i++) {
+           let b = true;
+
+           for (let j = 2; j <= Math.sqrt(i); j++) {
+               if (i % j == 0) {
+                   b = false;
+                   break;
+               }
+           }
+
+           if (b) {
+               numbers.value += (i.toString() + ' ');
+           }
+       }
+
+   }
+  </script>
+  <noscript>Страница может работать некорректно, т.к. отключена поддержка JS.</noscript>
+
+ </body>
+</html>

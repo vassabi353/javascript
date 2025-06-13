@@ -1,1 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+ <head>
+  <meta charset="UTF-8">
+  <title>Таблица</title>
+ </head>
+ <body>
 
+  <form id="f">
+   <p>
+    <label>
+     Введите количество строк:
+     <input id="input" required>
+    </label>
+   </p>
+
+   <input type="submit" value="Рисовать">
+  </form>
+
+  <script>
+   'use strict';
+
+   f.addEventListener('submit', draw);
+
+   function draw() {
+
+       event.preventDefault();
+
+       let n = input.value;
+
+       for (let i = 0; i < n; i++) {
+           switch (i % 5) {
+               case 0:
+                   console.log('%s\t%s\t%s\t%s\t%s\t%s', 'dog', 'dog', 'dog',
+                   'cat', 'cat', 'dog');
+                   break;
+               case 1:
+                   console.log('%s\t%s\t%s\t%s\t%s\t%s', 'dog', 'dog', 'cat',
+                   'cat', 'dog', 'dog');
+                   break;
+               case 2:
+                   console.log('%s\t%s\t%s\t%s\t%s\t%s', 'dog', 'cat', 'cat',
+                   'dog', 'dog', 'dog');
+                   break;
+               case 3:
+                   console.log('%s\t%s\t%s\t%s\t%s\t%s', 'cat', 'cat', 'dog',
+                   'dog', 'dog', 'cat');
+                   break;
+               default:
+                   console.log('%s\t%s\t%s\t%s\t%s\t%s', 'cat', 'dog', 'dog',
+                   'dog', 'cat', 'cat');
+           }  
+       }
+
+   }
+  </script>
+  <noscript>Страница может работать некорректно, т.к. отключена поддержка JS.</noscript>
+
+ </body>
+</html>

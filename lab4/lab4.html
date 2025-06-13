@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ru">
+ <head>
+  <meta charset="UTF-8">
+  <title>Объекты, дата и время</title>
+ </head>
+ <body>
+
+  <script>
+   'use strict';
+
+   class Book {
+   
+       title;
+       _pubYear;
+       #price;
+
+       /*
+       * Конструктор для создания книги с известными названием, годом публикации и ценой.
+       * @constructor
+       * @param {string} t - название книги (непустая строка).
+       * @param {number} y - год публикации (положительное число).
+       * @param {number} p - цена (положительное число).
+       */
+       constructor(t, y, p) {
+
+           this.title = t;
+           this.pubYear = y;
+           this.price = p;
+        
+       }
+
+       /*
+       * Выводит в консоль название и цену книги.
+       */
+       show() {
+    
+           console.log(`Название книги: ${this.title}\nЕё цена: ${this.price} ₽`);
+        
+       }
+
+       /*
+       * Сеттер, устанавливающий название книги.
+       * @param {string} t - название книги (непустая строка).
+       */
+       set title(t) {
+    
+           if (t != '') {
+               this.title = t;
+           }
+           else {
+               console.log('В качестве названия передана пустая строка.');
+           }
+        
+       }
+    
+       /*
+       * Геттер, возвращающий название книги.
+       * @return {string} название книги.
+       */
+       get title() {
+
+           return this._title;
+        
+       }
+       
+       /*
+       * Сеттер, устанавливающий год публикации книги.
+       * @param {number} y - год публикации (положительное число).
+       */
+       set pubYear(y) {
+    
+           if (y > 0) {
+               this._pubYear = y;
+           }
+           else {
+               console.log('В качестве года публикации передано неположительное число.');
+           }
+        
+       }
+
+       /*
+       * Геттер, возвращающий год публикации книги.
+       * @return {number} год публикации.
+       */
+       get pubYear() {
+
+           return this._pubYear;
+
+       }
+
+       /*
+       * Сеттер, устанавливающий цену книги.
+       * @param {number} p - цена (положительное число).
+       */
+       set price(p) {
+    
+           if (p > 0) {
+               this.#price = p;
+           }
+           else {
+               console.log('В качестве цены передано неположительное число.');
+           }
+        
+       }
+    
+       /*
+       * Геттер, возвращающий цену книги.
+       * @return {number} цену.
+       */
+       get price() {
+
+           return this.#price;
+
+       }
+    
+       /*
+       * Статический метод - критерий сортировки двух книг по году публикации.
+       * @param {object} первая сравниваемая книга.
+       * @param {object} вторая сравниваемая книга.
+       * @return {number} 1, если год публикации первой книги больше, чем у второй,
+       *                  0, если их года публикации равны,
+       *                 -1, если год публикации первой книги меньше, чем у второй.
+       */
+       static compare(book1, book2) {
+    
+           let p1 = book1.pubYear;
+           let p2 = book2.pubYear;
+        
+           if (p1 > p2) {
+               return 1;
+           }
+           if (p1 == p2) {
+               return 0;
+           }
+           if (p1 < p2) {
+               return -1;
+           }
+        
+       }
+   }
+
+   let b1 = new Book('Мастер и Маргарита', 1966, 204);
+   b1.show();
+
+   let b2 = b1;
+   b2.title = 'Горе от ума';
+   b2.pubYear = 1825;
+   b2.price = 89;
+
+   console.log(`Название новой книги: ${b2.title}\nГод публикации: ${b2.pubYear}\nЦена: ${b2.price} ₽`);
+
+   let bm = [new Book('Юность', 1857, 309), new Book('Детство', 1852, 249), new Book('Отрочество', 1854, 123)];
+
+   bm = bm.sort(Book.compare);
+
+   for (let i of bm) {
+       console.log(`Название: ${i.title}\nГод публикации: ${i.pubYear}\n`);
+   }
+
+   /*
+   * Проверка на пустой объект.
+   * @param {object} некий объект.
+   * @return {boolean} true, если у объекта нет свойств (в том числе скрытых), иначе false.
+   */
+   function isEmpty(obj) {
+
+       if (Reflect.ownKeys(obj).length) {
+           return false;
+       }
+       return true;
+    
+   }
+
+   if (isEmpty({[Symbol()]: true})) {
+       console.log('Объект пуст.');
+   }
+   else {
+       console.log('Объект не пуст.');
+   }
+   if (isEmpty(Object.defineProperty({}, 'name', {value: 'John',}))) {
+       console.log('Объект пуст.');
+   }
+   else {
+       console.log('Объект не пуст.');
+   }
+
+   let obj = {className: 'open menu',
+
+       /*
+       * Возвращает объект с добавленным в свойство className именем класса.
+       * @param {string} класс, который необходимо добавить.
+       * @return {object} изменённый объект.
+       */
+       addClass(cls) {
+    
+           if (!(new Set(this.className.split(' ')).has(cls))) {
+               if (!(this.className == '')) {
+                   this.className += ' ';
+               } 
+               this.className += cls;
+           }
+        
+           return this;
+        
+       },
+    
+       /*
+       * Возвращает объект с удалённым из свойства className именем класса.
+       * @param {string} класс, который необходимо удалить.
+       * @return {object} изменённый объект.
+       */
+       removeClass(cls) {
+        
+           let s = this.className.split(' ');
+        
+           if (s.includes(cls)) {
+               this.className = s.filter(element => element != cls).join(' ');
+           }
+        
+           return this;
+    
+       }
+    
+   }
+
+   console.log(`className после добавления navigation: ${obj.addClass('navigation').className}`);
+   console.log(`className после удаления menu: ${obj.removeClass('menu').className}`);
+
+   let nobj = JSON.stringify(obj, null, 2);
+   console.log(nobj);
+   let obj2 = JSON.parse(nobj);
+   if (obj == obj2) {
+       console.log('obj и obj2 равны.');
+   }
+   else {
+       console.log('obj и obj2 не равны.');
+   }
+
+   /*
+   * Возвращает количество секунд, прошедших с полуночи.
+   * @return {number} количество секунд, прошедших с начала сегодняшнего дня.
+   */
+   function getSecondsToday() {
+
+       let t = new Date();
+       return 3600 * t.getHours() + 60 * t.getMinutes() + t.getSeconds();
+
+   }
+
+   console.log(`Количество секунд, прошедших с начала текущего дня: ${getSecondsToday()}`);
+
+   /*
+   * Возвращает дату в формате строки "дд.мм.гг".
+   * @param {object} объект класса Date.
+   * @return {string} дату в формате "дд.мм.гг".
+   */
+   function formatDate(date) {
+
+       let d = date.getDate();
+       let m = date.getMonth() + 1;
+    
+       if (d < 10) {
+           d = '0' + d;
+       }
+       if (m < 10) {
+           m = '0' + m;
+       }
+
+       return `${d}.${m}.${date.getFullYear() % 100}`;
+
+   }
+
+   console.log(`Сегодняшняя дата: ${formatDate(new Date())}`);
+  </script>
+  <noscript>Страница может работать некорректно, т.к. отключена поддержка JS.</noscript>
+  
+ </body>
+</html>

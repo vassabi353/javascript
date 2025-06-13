@@ -17,11 +17,11 @@
 <div id="printBlock"></div>
 <script>
 "use strict";
-        document.getElementById('pensionForm').addEventListener('submit', function() {
+         document.getElementById('pensionForm').addEventListener('submit', function() {
             const ageInput = document.getElementById('age');
             const age = parseInt(ageInput.value);
             const gender = document.querySelector('input[name="gender"]:checked').value;
-            const resultTextarea = document.getElementById('resultarea');
+            const resultTextarea = document.getElementById('result');
             
             let message = "Да кто ты такой?";
             

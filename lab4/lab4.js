@@ -72,14 +72,14 @@ try {
     }
 
 
-    function isEmpty(obj) {
-        if (typeof obj !== 'object' || obj === null) return true;
+     function isEmpty(obj) {
 
-        for (let key in obj) {
-            if (obj.hasOwnProperty(key)) return false;
-        }
-        return Object.getOwnPropertySymbols(obj).length === 0;
-    }
+       if (Reflect.ownKeys(obj).length) {
+           return false;
+       }
+       return true;
+    
+   }
 
     let obj1 = { [Symbol()]: true };
     let obj2 = {};
